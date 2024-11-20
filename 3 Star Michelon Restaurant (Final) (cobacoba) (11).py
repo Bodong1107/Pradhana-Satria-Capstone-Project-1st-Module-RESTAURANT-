@@ -12,6 +12,8 @@ def delete_last_lines(n):
 def format_currency(amount):
     return 'Rp.{:,.2f},-'.format(amount)
 
+# hi ini dhana
+
 app_idx_int = []
 main_idx_int = []
 dessert_idx_int = []
