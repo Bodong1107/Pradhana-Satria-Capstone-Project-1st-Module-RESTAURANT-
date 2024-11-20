@@ -177,14 +177,14 @@ def tableView(judul,tablesource):       # Tested (OK)                           
         print(f"|Index  | {judul:<20}        |  Stock  |  Price             |")
         print("---------------------------------------------------------------------")
         for idx, item in enumerate(tablesource["name"]):
-            print(f"|{idx+1:<5}  | {item:<22}      |{tablesource["stock"][idx]:>6}   |  {format_currency(tablesource["price"][idx]):>13}    |")
+            print(f"|{idx+1:<5}  | {item:<22}      |{tablesource["stock"][idx]:>6}   |{format_currency(tablesource["price"][idx]):>16}    |")
         print("----------------------------------------------------------------------")
     elif tablesource == wine_list:
         print("--------------------------------------------------------------------------------")
         print(f"|Index  | {judul:<20}  |    Year    |  Stock  |  Price                |")
         print("--------------------------------------------------------------------------------")
         for idx, item in enumerate(tablesource["name"]):
-            print(f"|{idx+1:<5}  | {item:<16}      |{tablesource["year"][idx]:>8}    |{tablesource["stock"][idx]:>5}    |  {format_currency(tablesource["price"][idx]):>13}    |")
+            print(f"|{idx+1:<5}  | {item:<16}      |{tablesource["year"][idx]:>8}    |{tablesource["stock"][idx]:>5}    |{format_currency(tablesource["price"][idx]):>20}   |")
         print("--------------------------------------------------------------------------------")
 
 def customerTable():        # Tested (OK)
@@ -229,7 +229,7 @@ def full_table(tbl_1,jdl_1,tbl_2,jdl_2,tbl_3,jdl_3,tbl_4,jdl_4,tbl_5,jdl_5,tbl_6
         print(f"|                              {jdl_5}                                |")
         print("----------------------------------------------------------------------")
         for idx, item in enumerate(tbl_5["name"]):
-            print(f"|{idx+1:<5}  | {item:<22}      |{tbl_5["stock"][idx]:>6}   |  {format_currency(tbl_5["price"][idx]):>13}    |")
+            print(f"|{idx+1:<5}  | {item:<22}      |{tbl_5["stock"][idx]:>6}   |{format_currency(tbl_5["price"][idx]):>20}    |")
         print("----------------------------------------------------------------------")
 
         print("\n--------------------------------------------------------------------------------")
@@ -238,7 +238,7 @@ def full_table(tbl_1,jdl_1,tbl_2,jdl_2,tbl_3,jdl_3,tbl_4,jdl_4,tbl_5,jdl_5,tbl_6
         print(f"|                                  {jdl_6}                                   |")
         print("--------------------------------------------------------------------------------")
         for idx, item in enumerate(tbl_6["name"]):
-            print(f"|{idx+1:<5}  | {item:<16}      |{tbl_6["year"][idx]:>8}    |{tbl_6["stock"][idx]:>5}    |  {format_currency(tbl_6["price"][idx]):>13}    |")
+            print(f"|{idx+1:<5}  | {item:<16}      |{tbl_6["year"][idx]:>8}    |{tbl_6["stock"][idx]:>5}    |{format_currency(tbl_6["price"][idx]):>2}   |")
         print("--------------------------------------------------------------------------------")
 
 ## Food Update                                                                                          # (Admin Menu)
@@ -437,12 +437,15 @@ def replace_value(x):       # Tested (OK)
 
     if choose == "C":   # Tested (OK)
         sub_rep(x,z,"stock")
+        return False
 
     if choose == "D" and x in [drinks, wine_list]:  # Tested (OK)
         sub_rep(x,z,"price")
+        return False
 
     if choose == "E" and x == wine_list:    # Tested (OK)
         sub_rep(x,z,"year")
+        return False
     return
 
 # Item Delete                                                                                           # DONE (Admin Menu - Update)
