@@ -20,7 +20,6 @@ wine_idx_int = []
 snacks_idx_int = []
 CURSOR_UP_ONE = '\x1b[1A' 
 ERASE_LINE = '\x1b[2K' 
-isExit = 0
 
 appetizer = {"name" : ["King Crab Salad", "Marsala Risotto", "Portobello Pot Roast"],
                 "stock" : [1, 1, 2]}
@@ -86,7 +85,7 @@ def UserInput():        # Tested (OK)
                 continue
             break
 
-def order_input(x,cartData,judul):          # Tested (Mid)
+def order_input(x,cartData,judul):          # Tested (OK)
     tableView(judul,x)
     momAmo = []
     if totalPerson < 2:
@@ -109,7 +108,7 @@ def order_input(x,cartData,judul):          # Tested (Mid)
                 input("Press ENTER to Re-Input Choice")
                 delete_last_lines(5)
                 continue
-            if x in [drinks, wine_list]:        # Tested (Mid)
+            if x in [drinks, wine_list]:        # Tested (OK)
                 while True:
                     value1 = input(f"How much do you want: ")
                     if value1 == "":
@@ -174,18 +173,18 @@ def tableView(judul,tablesource):       # Tested (OK)                           
             print(f"|    {idx+1:<5}| {item:<30}       |{tablesource["stock"][idx]:>6}   |")
         print("------------------------------------------------------------")
     elif tablesource == drinks:
-        print("-------------------------------------------------------------------------")
-        print(f"|Index  | {judul:<20}        |  Stock  |  Price                |")
-        print("-------------------------------------------------------------------------")
+        print("----------------------------------------------------------------------")
+        print(f"|Index  | {judul:<20}        |  Stock  |  Price             |")
+        print("---------------------------------------------------------------------")
         for idx, item in enumerate(tablesource["name"]):
-            print(f"|{idx+1:<5}  | {item:<22}      |{tablesource["stock"][idx]:>6}   |  Rp. {tablesource["price"][idx]:>13},-  |")
-        print("-------------------------------------------------------------------------")
+            print(f"|{idx+1:<5}  | {item:<22}      |{tablesource["stock"][idx]:>6}   |  {format_currency(tablesource["price"][idx]):>13}    |")
+        print("----------------------------------------------------------------------")
     elif tablesource == wine_list:
         print("--------------------------------------------------------------------------------")
         print(f"|Index  | {judul:<20}  |    Year    |  Stock  |  Price                |")
         print("--------------------------------------------------------------------------------")
         for idx, item in enumerate(tablesource["name"]):
-            print(f"|{idx+1:<5}  | {item:<16}      |{tablesource["year"][idx]:>8}    |{tablesource["stock"][idx]:>5}    |  Rp. {tablesource["price"][idx]:>13},-  |")
+            print(f"|{idx+1:<5}  | {item:<16}      |{tablesource["year"][idx]:>8}    |{tablesource["stock"][idx]:>5}    |  {format_currency(tablesource["price"][idx]):>13}    |")
         print("--------------------------------------------------------------------------------")
 
 def customerTable():        # Tested (OK)
@@ -198,8 +197,52 @@ def customerTable():        # Tested (OK)
         print(f"|{idx+1:<5}  | {item:<22}      |{namaCustomer["age"][idx]:>5}    | {namaCustomer["gender"][idx]:<9} |")
     print("-------------------------------------------------------------")
 
+def full_table(tbl_1,jdl_1,tbl_2,jdl_2,tbl_3,jdl_3,tbl_4,jdl_4,tbl_5,jdl_5,tbl_6,jdl_6 ):       # Tested (OK)
+        os.system('cls')
+        print("------------------------------------------------------------")
+        print(f"|  INDEX  | NAME                                 |  Stock  |")
+        print("------------------------------------------------------------")
+        print(f"|                        {jdl_1}                         |")
+        print("------------------------------------------------------------")
+        for idx, item in enumerate(tbl_1["name"]):
+            print(f"|    {idx+1:<5}| {item:<30}       |{tbl_1["stock"][idx]:>6}   |")
+        print("------------------------------------------------------------")
+        print(f"|                       {jdl_2}                        |")
+        print("------------------------------------------------------------")
+        for idx, item in enumerate(tbl_2["name"]):
+            print(f"|    {idx+1:<5}| {item:<30}       |{tbl_2["stock"][idx]:>6}   |")
+        print("------------------------------------------------------------")
+        print(f"|                         {jdl_3}                          |")
+        print("------------------------------------------------------------")
+        for idx, item in enumerate(tbl_3["name"]):
+            print(f"|    {idx+1:<5}| {item:<30}       |{tbl_3["stock"][idx]:>6}   |")
+        print("------------------------------------------------------------")
+        print(f"|                         {jdl_4}                           |")
+        print("------------------------------------------------------------")
+        for idx, item in enumerate(tbl_4["name"]):
+            print(f"|    {idx+1:<5}| {item:<30}       |{(tbl_4["stock"][idx]):>6}   |")
+        print("------------------------------------------------------------")
+
+        print("\n----------------------------------------------------------------------")
+        print(f"|Index  | NAME                        |  Stock  |  Price             |")
+        print("----------------------------------------------------------------------")
+        print(f"|                              {jdl_5}                                |")
+        print("----------------------------------------------------------------------")
+        for idx, item in enumerate(tbl_5["name"]):
+            print(f"|{idx+1:<5}  | {item:<22}      |{tbl_5["stock"][idx]:>6}   |  {format_currency(tbl_5["price"][idx]):>13}    |")
+        print("----------------------------------------------------------------------")
+
+        print("\n--------------------------------------------------------------------------------")
+        print(f"|Index  | NAME                  |    Year    |  Stock  |  Price                |")
+        print("--------------------------------------------------------------------------------")
+        print(f"|                                  {jdl_6}                                   |")
+        print("--------------------------------------------------------------------------------")
+        for idx, item in enumerate(tbl_6["name"]):
+            print(f"|{idx+1:<5}  | {item:<16}      |{tbl_6["year"][idx]:>8}    |{tbl_6["stock"][idx]:>5}    |  {format_currency(tbl_6["price"][idx]):>13}    |")
+        print("--------------------------------------------------------------------------------")
+
 ## Food Update                                                                                          # (Admin Menu)
-def food_update():          # Tested (MID)                                                              # UPDATE SECTION (DONE)
+def food_update():          # Tested (OK)                                                              # UPDATE SECTION (DONE)
     os.system('cls')
     print("\nFood Type Update\n")
     print("1. Appetizer \n2. Main Course \n3. Dessert \n4. Drinks \n5. Wine \n6. Snacks \n7. Back")
@@ -222,7 +265,7 @@ def food_update():          # Tested (MID)                                      
         input("Invalid input! Press 'ENTER' to try again....")
         food_update() 
 
-def fd_up_sub(x,y,z):       # Tested (MID)
+def fd_up_sub(x,y,z):       # Tested (OK)
     tableView(z, x)
     print("1. Add Item  2. Replace Item  3. Delete Item  4. Back")
     fd_input = input("\nEnter number: ")
@@ -536,14 +579,17 @@ while True:
                 if passRequest == password:
                     os.system('cls')
                     print("\nAdmin Option \n")
-                    print("1. Food Update \n2. Customer List \n3. Update TripleP \n4. Back To Main Page \n5. Turn Off System ")
+                    print("1. Full Menu List \n2. Food Update \n3. Customer List \n4. Update TripleP \n5. Back To Main Page \n6. Turn Off System ")
                     ad_target = input("\nwhich menu you wish to do [1-5]: ")                                                                      # Function from food_update()
                     if ad_target == "1":
+                        full_table(appetizer,"APPETIZER",main_course,"MAIN COURSE",dessert,"DESSERT",snacks,"SNACKS",drinks,"DRINKS",wine_list,"WINE LIST")
+                        input("Press Anything To Go Back")
+                    elif ad_target == "2":
                         food_update()
-                    elif ad_target == "2":      # customerTable DONE !!!
+                    elif ad_target == "3":      # customerTable DONE !!!
                         customerTable()
                         input("Press Anything To Go Back")
-                    elif ad_target == "3":      # TripleP (Price Per Person) update # DONE!!!
+                    elif ad_target == "4":      # TripleP (Price Per Person) update # DONE!!!
                         while True:
                             try:
                                 delete_last_lines(1)
@@ -562,10 +608,10 @@ while True:
                                 input("Input Invalid press \"ENTER\" to re-input")
                                 delete_last_lines(2)
                                 continue
-                    elif ad_target == "4":      # DONE !!!
+                    elif ad_target == "5":      # DONE !!!
                         os.system('cls')
                         break
-                    elif ad_target == "5":      # DONE !!!
+                    elif ad_target == "6":      # DONE !!!
                         os.system('cls')
                         sys.exit()
                     else:
@@ -590,7 +636,6 @@ while True:
         main_page()
         totalPerson = input("How Many Person: ")
         if totalPerson.lower() == "cancel":
-            isExit = 1
             break
         elif not totalPerson.isdigit():
             input("Input invalid! press \"ENTER\" to re-input")
